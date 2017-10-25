@@ -1,0 +1,84 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+*{zoom:120%;}
+</style>
+</head>
+<body>
+<form action="http://staff.8531.cn:8081/Badminton/personSign/addSignInfo.do" method="post" onsubmit="beforsubmit()">
+<input name="atdGroupId" value="111" type="hidden">
+<input name="isField" value="0" type="hidden">
+<div>
+<input type="radio" name="isSignOut" value="0" checked>上班
+<input type="radio" name="isSignOut" value="1">下班
+</div>
+<input name="latitude" id="latitude" value="30.271003" type="hidden">
+<input name="longitude" id="longitude" value="120.175361" type="hidden">
+<div>
+<input name="personCode" id="personCode"  placeholder="用户名">
+</div>
+<div>
+<input name="signerName" id="signerName" placeholder="中文名">
+</div>
+<input name="signPlaceName" value="浙报大院" type="hidden">
+<div>
+<input name="signDateTime" id="signDateTime">
+</div>
+<div>
+<input type="submit" value="提交">
+</div>
+</form>
+<script>
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+function toInt(number) {
+    return number*1 | 0 || 0;
+}
+function fourNumber(temp){
+for(var i=0;i<3;i++){
+temp=temp+toInt(Math.random()*10);
+}
+return temp;
+}
+function setCookie(name,value)
+{
+var Days = 30;
+var exp = new Date();
+exp.setTime(exp.getTime() + Days*24*60*60*1000);
+document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+function getCookie(name)
+{
+var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+if(arr=document.cookie.match(reg))
+return unescape(arr[2]);
+else
+return null;
+}
+function beforsubmit(){
+setCookie("personCode",document.getElementById("personCode").value);
+setCookie("signerName",document.getElementById("signerName").value);
+}
+document.getElementById("signDateTime").value=new Date().Format("yyyy-MM-dd hh:mm:ss");
+document.getElementById("latitude").value=fourNumber("30.270");
+document.getElementById("longitude").value=fourNumber("120.174");
+document.getElementById("personCode").value=getCookie("personCode");
+document.getElementById("signerName").value=getCookie("signerName");
+</script>
+</body>
+</html>
